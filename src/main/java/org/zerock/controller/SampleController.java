@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.zerock.domain.SampleDTO;
 import org.zerock.domain.SampleDTOList;
 import org.zerock.domain.TodoDTO;
@@ -73,5 +75,22 @@ public class SampleController {
 	public String ex03(TodoDTO todo) {
 		log.info("todo: " + todo);
 		return "ex03";
+	}
+	
+	@GetMapping("/ex04")
+	// /sample/ex04?name=java&age=40&page=55
+	public String ex04(SampleDTO dto, @ModelAttribute("page") int page) {
+		log.info("dto: " + dto);
+		log.info("page: " + page);
+		return "/sample/ex04";
+	}
+	
+	@GetMapping("/ex06")
+	public @ResponseBody SampleDTO ex06() {
+		log.info("............ex06");
+		SampleDTO dto = new SampleDTO();
+		dto.setAge(10);
+		dto.setName("who");
+		return dto;
 	}
 }
